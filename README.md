@@ -152,27 +152,34 @@ http://localhost:3000
 
 # 📸 Screenshots
 
-> Add your screenshots inside `/screenshots` folder.
-
 ### 🖥️ Login Page
 
-`![Login](screenshots/login.png)`
+<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/973074e7-d1bb-4b2c-b577-c9c7ed82d215" />
+
+### 🖥️ Register Page
+<img width="1366" height="768" alt="register" src="https://github.com/user-attachments/assets/2eaa335f-2960-432b-bdf9-5465c1e3b507" />
+
 
 ### 👨‍💼 Employee Dashboard
+<img width="1366" height="768" alt="employee-dashboard" src="https://github.com/user-attachments/assets/2f8961f6-e32b-474e-b410-a5569762d024" />
 
-`![Employee Dashboard](screenshots/employee-dashboard.png)`
 
 ### 🧑‍💼 Manager Dashboard
 
-`![Manager Dashboard](screenshots/manager-dashboard.png)`
+<img width="1366" height="768" alt="manager-dashboard" src="https://github.com/user-attachments/assets/ceb05a8e-7d3b-454d-93a5-1bba05147c86" />
 
 ### 📅 Attendance History
+<img width="1366" height="768" alt="attendance-history" src="https://github.com/user-attachments/assets/a2d2c080-987f-4b9e-8cf7-08b83c2540f2" />
 
-`![History](screenshots/history.png)`
+
+### 📅 <Monthly Summary
+<img width="1366" height="768" alt="monthly-summary" src="https://github.com/user-attachments/assets/b6934d83-a9be-4d2f-ba4b-467886b083f8" />
+
+### 🧑‍💼 All Employees
+<img width="1366" height="768" alt="all-employees" src="https://github.com/user-attachments/assets/7394ff7d-05d4-4056-8e86-6a7df14eb1bc" />
 
 ### 📊 Reports Page
-
-`![Reports](screenshots/reports.png)`
+<img width="1366" height="768" alt="reports" src="https://github.com/user-attachments/assets/dd367381-0b9c-4236-8668-98be0fe36b3e" />
 
 ---
 
@@ -209,9 +216,9 @@ Inside `/backend/seed/` you can add:
 
 # 📤 Deployment (Optional)
 
-Frontend → Netlify / Vercel
-Backend → Render / Railway
-Database → MongoDB Atlas
+- Frontend → Netlify / Vercel
+- Backend → Render / Railway
+- Database → MongoDB Atlas
 
 ---
 
