@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api";
 import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -15,12 +15,12 @@ import {
     Divider,
 } from "@mui/material";
 import {
-    EventAvailable, // Present
-    EventBusy,      // Absent
-    Schedule,       // Late
-    AccessTime,     // Total Hours
-    AccessAlarms,   // Half Day
-    ListAlt,        // Back to Dashboard
+    EventAvailable,
+    EventBusy,
+    Schedule,
+    AccessTime,
+    AccessAlarms,
+    ListAlt,
 } from "@mui/icons-material";
 import { motion } from "framer-motion";
 
@@ -35,7 +35,7 @@ const itemVariants = {
     visible: { opacity: 1, y: 0 },
 };
 
-// --- Component: Statistic Card ---
+// Statistic Card
 const StatCard = ({ title, value, color, icon: IconComponent, unit = 'Days' }) => (
     <motion.div variants={itemVariants} style={{ height: '100%' }}>
         <Card 
@@ -59,8 +59,7 @@ const StatCard = ({ title, value, color, icon: IconComponent, unit = 'Days' }) =
                         {title}
                     </Typography>
                     <Typography variant="h4" fontWeight="800" sx={{ color: color }}>
-                        {/* Ensure value is non-null and formatted */}
-                        {value === null || value === undefined ? '-' : value} 
+                        {value === null || value === undefined ? '-' : value}
                         {unit === 'Hours' ? 'h' : ''}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
@@ -75,8 +74,6 @@ const StatCard = ({ title, value, color, icon: IconComponent, unit = 'Days' }) =
     </motion.div>
 );
 
-
-// --- Main Component ---
 export default function Summary() {
     const theme = useTheme();
     const navigate = useNavigate();
@@ -90,10 +87,10 @@ export default function Summary() {
         setLoading(true);
         setError(null);
         try {
-            const res = await axios.get("http://localhost:5000/api/attendance/my-summary", {
+            const res = await api.get("/api/attendance/my-summary", {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            // FIX: Ensure totalHours is handled as a number (fixed to 2 decimal places)
+
             const data = res.data;
             data.totalHours = data.totalHours ? parseFloat(data.totalHours).toFixed(2) : '0.00';
             setSummary(data);
@@ -118,14 +115,12 @@ export default function Summary() {
         return <Container sx={{ py: 5 }}><Alert severity="error">{error}</Alert></Container>;
     }
 
-    // Define the cards data for mapping
     const summaryData = [
         { title: 'Present Days', key: 'present', icon: EventAvailable, color: theme.palette.success.main, value: summary?.present || 0, unit: 'Days' },
         { title: 'Absent Days', key: 'absent', icon: EventBusy, color: theme.palette.error.main, value: summary?.absent || 0, unit: 'Days' },
         { title: 'Late Arrivals', key: 'late', icon: Schedule, color: theme.palette.warning.main, value: summary?.late || 0, unit: 'Days' },
         { title: 'Half Days', key: 'halfday', icon: AccessAlarms, color: theme.palette.secondary.main, value: summary?.halfday || 0, unit: 'Days' },
     ];
-
 
     return (
         <Box sx={{ minHeight: "100vh", py: 5, backgroundColor: "#f4f6f8" }}>
@@ -147,7 +142,6 @@ export default function Summary() {
                     </Box>
 
                     <Grid container spacing={4} sx={{ mb: 4 }}>
-                        {/* Row 1: Days Summary (Present, Absent, Late, Half Day) */}
                         {summaryData.map(item => (
                             <Grid item xs={12} sm={6} lg={3} key={item.key}>
                                 <StatCard {...item} />
@@ -157,7 +151,6 @@ export default function Summary() {
 
                     <Divider sx={{ my: 3 }} />
                     
-                    {/* Row 2: Total Hours (Larger Card) */}
                     <Grid container spacing={4}>
                         <Grid item xs={12} md={6}>
                             <motion.div variants={itemVariants}>
@@ -167,7 +160,6 @@ export default function Summary() {
                                             <Typography variant="h5" fontWeight="bold" gutterBottom>
                                                 Total Hours Worked
                                             </Typography>
-                                            {/* We use info.main for Total Hours */}
                                             <Typography variant="h3" fontWeight="800" sx={{ color: theme.palette.info.main, mt: 1 }}>
                                                 {summary?.totalHours || '0.00'} hrs
                                             </Typography>
