@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../api"; 
 import { useNavigate } from "react-router-dom";
 import {
   Container,
@@ -43,7 +43,7 @@ export default function Login() {
     setError(null);
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await api.post("/api/auth/login", {
         email,
         password,
       });
@@ -60,7 +60,8 @@ export default function Login() {
         navigate("/manager/dashboard");
       }
     } catch (err) {
-      const errorMessage = err.response?.data?.msg || "Invalid email or password. Please try again.";
+      const errorMessage =
+        err.response?.data?.msg || "Invalid email or password. Please try again.";
       setError(errorMessage);
     } finally {
       setLoading(false);
