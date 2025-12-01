@@ -3,9 +3,17 @@ const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
+
     email: { type: String, required: true, unique: true },
+
     password: { type: String, required: true },
-    role: { type: String, enum: ["employee", "manager"], default: "employee" },
+
+    role: { 
+      type: String, 
+      enum: ["employee", "manager"], 
+      default: "employee" 
+    },
+
     department: { type: String }
   },
   { timestamps: true }
