@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api";
 import { useEffect, useState } from "react";
 import {
   Container,
@@ -55,28 +55,28 @@ export default function ManagerDashboard() {
   }, []);
 
   const fetchSummary = async () => {
-    const res = await axios.get("http://localhost:5000/api/attendance/summary", {
+    const res = await api.get("/api/attendance/summary", {
       headers: { Authorization: `Bearer ${token}` }
     });
     setSummary(res.data);
   };
 
   const fetchToday = async () => {
-    const res = await axios.get("http://localhost:5000/api/attendance/today-status", {
+    const res = await api.get("/api/attendance/today-status", {
       headers: { Authorization: `Bearer ${token}` }
     });
     setTodayAttendance(res.data);
   };
 
   const fetchWeeklyTrend = async () => {
-    const res = await axios.get("http://localhost:5000/api/attendance/weekly-trend", {
+    const res = await api.get("/api/attendance/weekly-trend", {
       headers: { Authorization: `Bearer ${token}` }
     });
     setWeeklyTrend(res.data);
   };
 
   const fetchDepartmentSummary = async () => {
-    const res = await axios.get("http://localhost:5000/api/attendance/department-summary", {
+    const res = await api.get("/api/attendance/department-summary", {
       headers: { Authorization: `Bearer ${token}` }
     });
     setDepartmentAttendance(res.data);
@@ -111,8 +111,8 @@ export default function ManagerDashboard() {
     </motion.div>
   );
 
-  const absentEmployees = todayAttendance.filter(t => !t.checkInTime);
-  const checkedInEmployees = todayAttendance.filter(t => t.checkInTime);
+  const absentEmployees = todayAttendance.filter((t) => !t.checkInTime);
+  const checkedInEmployees = todayAttendance.filter((t) => t.checkInTime);
 
   return (
     <Box sx={{ background: "#f4f6f8", minHeight: "100vh", paddingY: 4 }}>
@@ -176,7 +176,7 @@ export default function ManagerDashboard() {
           </Grid>
         </Grid>
 
-        {/* CHARTS – HORIZONTAL SCROLL */}
+        {/* CHARTS */}
         <Box
           sx={{
             display: "flex",
@@ -192,7 +192,7 @@ export default function ManagerDashboard() {
             }
           }}
         >
-          {/* Weekly Chart */}
+          {/* WEEKLY TREND */}
           <Card
             elevation={4}
             sx={{
@@ -216,7 +216,7 @@ export default function ManagerDashboard() {
             </CardContent>
           </Card>
 
-          {/* Department Chart */}
+          {/* DEPARTMENT BREAKDOWN */}
           <Card
             elevation={4}
             sx={{
@@ -234,10 +234,7 @@ export default function ManagerDashboard() {
                   <YAxis type="category" dataKey="department" />
                   <Tooltip />
                   <Legend />
-                  <Bar
-                    dataKey="presentDays"
-                    fill={theme.palette.secondary.main}
-                  />
+                  <Bar dataKey="presentDays" fill={theme.palette.secondary.main} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -246,7 +243,8 @@ export default function ManagerDashboard() {
 
         {/* LISTS */}
         <Grid container spacing={3} sx={{ mt: 3 }}>
-          {/* Absent */}
+
+          {/* ABSENT LIST */}
           <Grid item xs={12} md={6}>
             <Card elevation={4} sx={{ borderRadius: 3 }}>
               <Box
@@ -262,7 +260,7 @@ export default function ManagerDashboard() {
               </Box>
 
               <List sx={{ maxHeight: 350, overflowY: "auto" }}>
-                {absentEmployees.map(emp => (
+                {absentEmployees.map((emp) => (
                   <div key={emp._id}>
                     <ListItem>
                       <ListItemText
@@ -277,7 +275,7 @@ export default function ManagerDashboard() {
             </Card>
           </Grid>
 
-          {/* Checked In */}
+          {/* CHECKED-IN LIST */}
           <Grid item xs={12} md={6}>
             <Card elevation={4} sx={{ borderRadius: 3 }}>
               <Box
@@ -293,7 +291,7 @@ export default function ManagerDashboard() {
               </Box>
 
               <List sx={{ maxHeight: 350, overflowY: "auto" }}>
-                {checkedInEmployees.map(emp => (
+                {checkedInEmployees.map((emp) => (
                   <div key={emp._id}>
                     <ListItem>
                       <ListItemText
@@ -309,6 +307,7 @@ export default function ManagerDashboard() {
               </List>
             </Card>
           </Grid>
+
         </Grid>
 
         {/* BUTTONS */}
@@ -330,6 +329,7 @@ export default function ManagerDashboard() {
             Generate Detailed Reports
           </Button>
         </Box>
+
       </Container>
     </Box>
   );
