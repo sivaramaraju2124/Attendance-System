@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../api";
 import { useNavigate } from "react-router-dom";
 
 import {
@@ -29,7 +29,7 @@ import {
 
 import { motion } from "framer-motion";
 
-// Motion wrapper fix for deprecation warning
+// Motion wrapper fix
 const MotionPaper = motion.create(Paper);
 
 // Animations
@@ -46,14 +46,13 @@ export default function Register() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      department: "",
-      role: "employee"   // added
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    department: "",
+    role: "employee"
   });
-
 
   const [showPassword, setShowPassword] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState(0);
@@ -102,14 +101,13 @@ export default function Register() {
     setAlertMsg(null);
 
     try {
-      await axios.post("http://localhost:5000/api/auth/register", {
+      await api.post("/api/auth/register", {
         name: form.name,
         email: form.email,
         password: form.password,
         department: form.department,
         role: form.role
-    });
-
+      });
 
       setAlertMsg("Registration successful! Redirecting...");
       setAlertType("success");
@@ -128,7 +126,7 @@ export default function Register() {
   return (
     <Box sx={{ background: "#f4f6f8", minHeight: "100vh", py: 6 }}>
       <Container maxWidth="xs">
-        
+
         <MotionPaper
           elevation={10}
           variants={cardVariants}
@@ -149,7 +147,7 @@ export default function Register() {
           </Box>
 
           <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
-            
+
             <TextField
               label="Full Name"
               name="name"
@@ -162,7 +160,7 @@ export default function Register() {
                   <InputAdornment position="start">
                     <PersonAdd />
                   </InputAdornment>
-                ),
+                )
               }}
             />
 
@@ -179,7 +177,7 @@ export default function Register() {
                   <InputAdornment position="start">
                     <Email />
                   </InputAdornment>
-                ),
+                )
               }}
             />
 
@@ -204,7 +202,7 @@ export default function Register() {
                       {showPassword ? <VisibilityOff /> : <Visibility />}
                     </IconButton>
                   </InputAdornment>
-                ),
+                )
               }}
             />
 
@@ -224,8 +222,8 @@ export default function Register() {
                           ? "orange"
                           : passwordStrength < 4
                           ? "gold"
-                          : "green",
-                    },
+                          : "green"
+                    }
                   }}
                 />
                 <Typography variant="caption" sx={{ color: "gray" }}>
@@ -248,7 +246,7 @@ export default function Register() {
                   <InputAdornment position="start">
                     <Lock />
                   </InputAdornment>
-                ),
+                )
               }}
             />
 
@@ -265,9 +263,11 @@ export default function Register() {
                   <InputAdornment position="start">
                     <Work />
                   </InputAdornment>
-                ),
+                )
               }}
             />
+
+            {/* ROLE */}
             <TextField
               select
               label="Role"
