@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api";
 import { useState } from "react";
 import {
   Container,
@@ -16,11 +16,12 @@ export default function CheckInOut() {
 
   const checkIn = async () => {
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/attendance/checkin",
+      const res = await api.post(
+        "/api/attendance/checkin",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
+
       setMsg(res.data.msg);
     } catch (err) {
       setMsg(err.response?.data?.msg || "Error");
@@ -29,8 +30,8 @@ export default function CheckInOut() {
 
   const checkOut = async () => {
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/attendance/checkout",
+      const res = await api.post(
+        "/api/attendance/checkout",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
