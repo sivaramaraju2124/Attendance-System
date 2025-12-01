@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api";
 import { useEffect, useState, useCallback } from "react"; 
 import { useNavigate } from "react-router-dom"; 
 import {
@@ -71,9 +71,9 @@ export default function EmployeeDashboard() {
         try {
             const headers = { Authorization: `Bearer ${localToken}` };
             const [summaryRes, historyRes, profileRes] = await Promise.all([
-                axios.get("http://localhost:5000/api/attendance/my-summary", { headers }),
-                axios.get("http://localhost:5000/api/attendance/my-history", { headers }),
-                axios.get("http://localhost:5000/api/auth/me", { headers }),
+                api.get("/api/attendance/my-summary", { headers }),
+                api.get("/api/attendance/my-history", { headers }),
+                api.get("/api/auth/me", { headers }),
             ]);
 
             setUserName(profileRes.data.name || "Employee");
@@ -131,7 +131,7 @@ export default function EmployeeDashboard() {
         setActionLoading(true);
         const localToken = localStorage.getItem("token");
         try {
-            await axios.post(`http://localhost:5000/api/attendance/${actionType}`, {}, {
+            await api.post(`/api/attendance/${actionType}`, {}, {
                 headers: { Authorization: `Bearer ${localToken}` },
             });
             // Re-fetch data to update the status immediately
