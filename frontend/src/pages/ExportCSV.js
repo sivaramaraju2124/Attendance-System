@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api";
 import { useEffect, useState } from "react";
 import {
   Container,
@@ -36,7 +36,7 @@ export default function ExportCSV() {
 
   const fetchEmployees = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/attendance/all", {
+      const res = await api.get("/api/attendance/all", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -70,9 +70,9 @@ export default function ExportCSV() {
     setAlertMsg(null);
 
     try {
-      const url = `http://localhost:5000/api/attendance/export?startDate=${startDate}&endDate=${endDate}&employeeId=${selectedEmployee}`;
+      const url = `/api/attendance/export?startDate=${startDate}&endDate=${endDate}&employeeId=${selectedEmployee}`;
 
-      const res = await axios.get(url, {
+      const res = await api.get(url, {
         headers: { Authorization: `Bearer ${token}` },
         responseType: "blob",
       });
@@ -122,7 +122,6 @@ export default function ExportCSV() {
           animate={{ opacity: 1 }}
         >
           <Grid container spacing={3}>
-
             {/* Start Date */}
             <Grid item xs={12} md={6}>
               <TextField
