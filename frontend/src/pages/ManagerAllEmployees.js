@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../api";
 import { useEffect, useState } from "react";
 import {
   Container,
@@ -45,7 +45,7 @@ export default function ManagerAllEmployees() {
   }, []);
 
   const fetchData = async () => {
-    const res = await axios.get("http://localhost:5000/api/attendance/all", {
+    const res = await api.get("/api/attendance/all", {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -57,37 +57,37 @@ export default function ManagerAllEmployees() {
     setFilters({ ...filters, [e.target.name]: e.target.value });
   };
 
-  // Corrected applyFilters function
-const applyFilters = () => {
+  // --- APPLY FILTERS ---
+  const applyFilters = () => {
     let data = [...allRecords];
-    const e = filters.employee.toLowerCase().trim(); // Trim and lower-case search term once
+    const e = filters.employee.toLowerCase().trim();
 
-    // --- 1. Employee Filter FIX ---
     if (e !== "") {
       data = data.filter((r) => {
-        // Step 1: Ensure r.userId exists (check if population failed)
         if (!r.userId) return false;
 
         const userName = r.userId.name ? r.userId.name.toLowerCase() : "";
-        const employeeId = r.userId.employeeId ? r.userId.employeeId.toLowerCase() : "";
+        const employeeId = r.userId.employeeId
+          ? r.userId.employeeId.toLowerCase()
+          : "";
 
-        // Step 2: Check if name OR employeeId includes the search term
         return userName.includes(e) || employeeId.includes(e);
       });
     }
-    // --- End Employee Filter FIX ---
 
     if (filters.date !== "") {
       data = data.filter((r) => r.date === filters.date);
     }
 
     if (filters.status !== "All") {
-      data = data.filter((r) => r.status === filters.status.toLowerCase());
+      data = data.filter(
+        (r) => r.status === filters.status.toLowerCase()
+      );
     }
 
     setFilteredRecords(data);
     setPage(0);
-};
+  };
 
   const clearFilters = () => {
     setFilters({ employee: "", date: "", status: "All" });
@@ -103,12 +103,7 @@ const applyFilters = () => {
       case "late":
         return <Chip label="Late" color="warning" />;
       case "halfday":
-        return (
-          <Chip
-            label="Half Day"
-            sx={{ background: "#ff9800", color: "#fff" }}
-          />
-        );
+        return <Chip label="Half Day" sx={{ background: "#ff9800", color: "#fff" }} />;
       default:
         return status;
     }
@@ -121,7 +116,6 @@ const applyFilters = () => {
     setPage(0);
   };
 
-  // Unique Employee List for dropdown
   const employeeList = [
     ...new Map(
       allRecords.map((r) => [
@@ -134,6 +128,7 @@ const applyFilters = () => {
   return (
     <Box sx={{ background: "#f4f6f8", minHeight: "100vh", py: 4 }}>
       <Container maxWidth="xl">
+
         {/* HEADER */}
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1 }}>
           <Typography
@@ -164,6 +159,7 @@ const applyFilters = () => {
           animate={{ opacity: 1 }}
         >
           <Grid container spacing={2} alignItems="center">
+            
             {/* Employee Filter */}
             <Grid item xs={12} md={4}>
               <TextField
@@ -219,14 +215,11 @@ const applyFilters = () => {
                 Apply
               </Button>
 
-              <Button
-                variant="outlined"
-                fullWidth
-                onClick={clearFilters}
-              >
+              <Button variant="outlined" fullWidth onClick={clearFilters}>
                 Clear
               </Button>
             </Grid>
+
           </Grid>
         </Paper>
 
@@ -264,16 +257,13 @@ const applyFilters = () => {
                     <TableCell>{r.date}</TableCell>
                     <TableCell>{r.checkInTime || "-"}</TableCell>
                     <TableCell>{r.checkOutTime || "-"}</TableCell>
-                    <TableCell>
-                      {(r.totalHours || 0).toFixed(2)} hrs
-                    </TableCell>
+                    <TableCell>{(r.totalHours || 0).toFixed(2)} hrs</TableCell>
                     <TableCell>{formatStatus(r.status)}</TableCell>
                   </TableRow>
                 ))}
             </TableBody>
           </Table>
 
-          {/* PAGINATION */}
           <TablePagination
             component="div"
             count={filteredRecords.length}
@@ -294,6 +284,7 @@ const applyFilters = () => {
         >
           Back to Dashboard
         </Button>
+
       </Container>
     </Box>
   );
