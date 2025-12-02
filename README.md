@@ -22,7 +22,7 @@ https://attendance-system-spsv.onrender.com
 ### **Employee Demo**
 ```
 
-Email: [demo@gmail.com](mailto:demo@gmail.com)
+Email: demo@gmail.com
 Password: demo@123
 
 ```
@@ -30,7 +30,7 @@ Password: demo@123
 ### **Manager Demo**
 ```
 
-Email: [demomanager@gmail.com](mailto:demomanager@gmail.com)
+Email: demomanager@gmail.com
 Password: manager@123
 
 ```
