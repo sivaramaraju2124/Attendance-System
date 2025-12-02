@@ -14,10 +14,16 @@ app.use(express.json());
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/attendance", require("./routes/attendanceRoutes"));
 
-// Serve React build from backend/build
+// OPTIONAL health check
+app.get("/api", (req, res) => {
+  res.send("API is working");
+});
+
+// Serve React build
 app.use(express.static(path.join(__dirname, "build")));
 
-app.get("/*", (req, res) => {
+// React Router fallback
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
