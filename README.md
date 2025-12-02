@@ -1,7 +1,39 @@
 # 📌 Employee Attendance System (MERN)
 
-A full-stack **Employee Attendance Tracking System** with role-based access for **Employees** and **Managers**.  
-Employees can check in/out and view attendance history, while managers can view team stats, filter records, and export reports.
+A full-stack **Employee Attendance Tracking System** with role-based access for **Employees** and **Managers**.
+
+> ⚠️ **Note:** This project is deployed on free Render servers.  
+> The website may take **20–40 seconds to wake up**. Please wait while it loads.
+
+---
+
+# 🔗 Live Demo Links
+
+### **Frontend**
+https://attendance-system-tap-academy.onrender.com
+
+### **Backend**
+https://attendance-system-spsv.onrender.com
+
+---
+
+# 🔑 Seed Data for Demo Testing
+
+### **Employee Demo**
+```
+
+Email: [demo@gmail.com](mailto:demo@gmail.com)
+Password: demo@123
+
+```
+
+### **Manager Demo**
+```
+
+Email: [demomanager@gmail.com](mailto:demomanager@gmail.com)
+Password: manager@123
+
+```
 
 ---
 
@@ -18,7 +50,7 @@ Employees can check in/out and view attendance history, while managers can view 
 ### **Backend**
 - Node.js  
 - Express.js  
-- MongoDB / PostgreSQL  
+- MongoDB  
 - JWT Authentication  
 
 ---
@@ -35,6 +67,8 @@ attendance-system/
 │   ├── models/
 │   ├── routes/
 │   ├── seed/
+│   │    ├── users.js
+│   │    └── attendance.js
 │   ├── server.js
 │   ├── package.json
 │   └── .env.example
@@ -70,7 +104,7 @@ cd backend
 npm install
 ```
 
-Create a `.env` file:
+Create `.env`:
 
 ```env
 MONGO_URI=your_mongo_url
@@ -118,24 +152,24 @@ JWT_SECRET=
 PORT=
 ```
 
-### Frontend (optional)
+### Frontend (`frontend/.env`)
 
 ```
-REACT_APP_API_URL=
+REACT_APP_API_URL=http://localhost:5000
 ```
 
 ---
 
 # ▶️ How to Run the Project
 
-Start Backend:
+Start backend:
 
 ```sh
 cd backend
 npm run dev
 ```
 
-Start Frontend:
+Start frontend:
 
 ```sh
 cd frontend
@@ -147,82 +181,32 @@ Open browser:
 ```
 http://localhost:3000
 ```
-
----
-
-# 📸 Screenshots
-
-### 🖥️ Login Page
-
-<img width="1366" height="768" alt="image" src="https://github.com/user-attachments/assets/973074e7-d1bb-4b2c-b577-c9c7ed82d215" />
-
-### 🖥️ Register Page
-<img width="1366" height="768" alt="register" src="https://github.com/user-attachments/assets/2eaa335f-2960-432b-bdf9-5465c1e3b507" />
-
-
-### 👨‍💼 Employee Dashboard
-<img width="1366" height="768" alt="employee-dashboard" src="https://github.com/user-attachments/assets/2f8961f6-e32b-474e-b410-a5569762d024" />
-
-
-### 🧑‍💼 Manager Dashboard
-
-<img width="1366" height="768" alt="manager-dashboard" src="https://github.com/user-attachments/assets/ceb05a8e-7d3b-454d-93a5-1bba05147c86" />
-
-### 📅 Attendance History
-<img width="1366" height="768" alt="attendance-history" src="https://github.com/user-attachments/assets/a2d2c080-987f-4b9e-8cf7-08b83c2540f2" />
-
-
-### 📅 <Monthly Summary
-<img width="1366" height="768" alt="monthly-summary" src="https://github.com/user-attachments/assets/b6934d83-a9be-4d2f-ba4b-467886b083f8" />
-
-### 🧑‍💼 All Employees
-<img width="1366" height="768" alt="all-employees" src="https://github.com/user-attachments/assets/7394ff7d-05d4-4056-8e86-6a7df14eb1bc" />
-
-### 📊 Reports Page
-<img width="1366" height="768" alt="reports" src="https://github.com/user-attachments/assets/dd367381-0b9c-4236-8668-98be0fe36b3e" />
-
 ---
 
 # 📝 Features Summary
 
-### Employee
+### **Employee**
 
 * Login / Register
 * Check-in / Check-out
 * Monthly summary
 * Weekly chart
-* Attendance history (calendar/table)
+* Attendance history
 * Profile
 
-### Manager
+### **Manager**
 
 * Dashboard
 * All employees list
 * Filter by employee/date/status
-* Team attendance summary
+* Team summary
 * Export CSV
 * Calendar view
 
 ---
 
-# 🧪 Seed Data (Optional)
+# 📤 Deployment
 
-Inside `/backend/seed/` you can add:
-
-* Sample users
-* Sample attendance records
-
----
-
-# 📤 Deployment (Optional)
-
-- Frontend → Netlify / Vercel
-- Backend → Render / Railway
-- Database → MongoDB Atlas
-
----
-
-# 🏁 Submission
-
-* GitHub Repo Link
-* Live Demo Link (optional but recommended)
+* **Frontend:** Render
+* **Backend:** Render
+* **Database:** MongoDB Atlas
